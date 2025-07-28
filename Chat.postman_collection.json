@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "dbe8d381-992f-4acd-9b29-f3458d413180",
+		"name": "Chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42593850"
+	},
+	"item": [
+		{
+			"name": "Send Prompt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"prompt\": \"Who are you?\",\r\n    \"model\": \"qwen/qwq-32b:free\",\r\n    \"messages\": [],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/chat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"chat"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

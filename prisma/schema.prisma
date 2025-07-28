@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model chats {
+  user_id      Int
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+  last_updated DateTime? @default(now()) @db.Timestamp(6)
+  name         String    @default("New chat") @db.VarChar(50)
+  is_deleted   Boolean   @default(false)
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  users        users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model messages {
+  id         Int         @id @default(autoincrement())
+  role       sender_role
+  content    String      @db.VarChar(10000)
+  created_at DateTime?   @default(now()) @db.Timestamp(6)
+  model_id   Int
+  chat_id    String?     @db.Uuid
+  models     models      @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model models {
+  id       Int        @id @default(autoincrement())
+  name     String     @db.VarChar(100)
+  value    String     @unique @db.VarChar(100)
+  messages messages[]
+}
+
+model users {
+  id            Int     @id @default(autoincrement())
+  first_name    String  @db.VarChar(50)
+  last_name     String  @db.VarChar(50)
+  email         String  @unique @db.VarChar(320)
+  password_hash String  @db.VarChar(60)
+  chats         chats[]
+}
+
+enum sender_role {
+  user
+  assistant
+}
