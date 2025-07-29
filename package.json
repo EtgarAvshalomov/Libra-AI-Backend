@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node --test",
-    "build": "npm install && ./node_modules/.bin/prisma generate",
+    "build": "npm install && chmod +x ./node_modules/.bin/prisma && npx prisma generate",
     "start": "node index.js",
     "dev": "node --watch index.js"
   },
