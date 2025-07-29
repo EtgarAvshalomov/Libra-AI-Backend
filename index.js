@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 // Enable CORS for all origins (for local development)
 app.use(cors({
-    origin: 'http://localhost:3001', // Frontend URLs
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 console.log('Step 1: CORS policy added');
