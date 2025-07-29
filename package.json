@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node --test",
-    "build": "prisma generate",
+    "build": "npx prisma generate",
     "start": "node index.js",
     "dev": "node --watch index.js"
   },
