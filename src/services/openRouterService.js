@@ -38,6 +38,21 @@ class OpenAIService {
         }
     }
 
+    async streamChat({ messages, model = this.defaultModel, max_tokens, temperature = 0.7 }) {
+        const controller = new AbortController();
+
+        const stream = await this.client.chat.completions.create({
+            model,
+            max_tokens,
+            messages,
+            temperature,
+            stream: true,
+            signal: controller.signal
+        });
+
+        return {stream, controller};
+    }
+
     parseResponse(completion) {
         if (!completion?.choices?.length) {
             throw new Error('No response choices received from AI');
