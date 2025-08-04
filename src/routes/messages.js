@@ -252,7 +252,7 @@ router.get('/', authenticateToken, async (req, res) => {
         const messages = await prisma.messages.findMany({
             where: { chat_id: chatId,  },
             orderBy: { created_at: 'asc' },
-            select: { role: true, content: true }
+            select: { role: true, content: true, model_id: true }
         });
         res.status(200).json({ data: { messages } });
     } catch (error) {
