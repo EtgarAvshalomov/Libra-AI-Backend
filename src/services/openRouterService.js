@@ -17,7 +17,7 @@ class OpenAIService {
             const {
                 model = this.defaultModel,
                 max_tokens = 1000,
-                temperature = 0.7
+                temperature = 1
             } = options;
 
             console.log(`[OpenAI Service] Sending request to model: ${model}`);
@@ -38,7 +38,7 @@ class OpenAIService {
         }
     }
 
-    async streamChat({ messages, model = this.defaultModel, max_tokens, temperature = 0.7 }) {
+    async streamChat({ messages, model = this.defaultModel, max_tokens, temperature = 1 }) {
         const controller = new AbortController();
 
         const stream = await this.client.chat.completions.create({

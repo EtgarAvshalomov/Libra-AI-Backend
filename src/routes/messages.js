@@ -101,7 +101,7 @@ router.post('/assistant', validateChatParams, authenticateToken, async (req, res
 
         // Add the assistant's response to the conversation history
         await prisma.messages.create({
-            data: { chat_id: chatId, role: 'assistant', content: response.message, model_id }
+            data: { chat_id: chatId, role: 'assistant', content: response.message, model_id, temperature }
         });
 
         await prisma.chats.update({
@@ -166,7 +166,7 @@ router.post('/assistant-stream', authenticateToken, async (req, res) => {
 
         // Create new assistant message in the database
         await prisma.messages.create({
-            data: { chat_id: chatId, role: 'assistant', content: '', model_id }
+            data: { chat_id: chatId, role: 'assistant', content: '', model_id, temperature }
         })
 
         // Find newly created assistant message
@@ -252,7 +252,7 @@ router.get('/', authenticateToken, async (req, res) => {
         const messages = await prisma.messages.findMany({
             where: { chat_id: chatId,  },
             orderBy: { created_at: 'asc' },
-            select: { role: true, content: true, model_id: true }
+            select: { role: true, content: true, model_id: true, temperature: true }
         });
         res.status(200).json({ data: { messages } });
     } catch (error) {
