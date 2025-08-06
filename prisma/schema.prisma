@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
   binaryTargets = ["native", "linux-musl"]
 }
 
@@ -21,13 +21,14 @@ model chats {
 }
 
 model messages {
-  id         Int         @id @default(autoincrement())
-  role       sender_role
-  content    String      @db.VarChar(10000)
-  created_at DateTime?   @default(now()) @db.Timestamp(6)
-  model_id   Int
-  chat_id    String?     @db.Uuid
-  models     models      @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id          Int         @id @default(autoincrement())
+  role        sender_role
+  content     String      @db.VarChar(10000)
+  created_at  DateTime?   @default(now()) @db.Timestamp(6)
+  model_id    Int
+  chat_id     String?     @db.Uuid
+  temperature Float?      @db.Real
+  models      models      @relation(fields: [model_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model models {
