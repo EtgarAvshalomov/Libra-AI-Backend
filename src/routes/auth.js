@@ -66,7 +66,8 @@ router.post('/login', async (req, res) => {
         }
 
         // Find user
-        const user = await prisma.users.findUnique({ where: { email } });
+        const lowerEmail = email.toLowerCase();
+        const user = await prisma.users.findUnique({ where: { lowerEmail } });
         if (!user) return res.status(400).send({message: 'Invalid credentials' });
 
         // Check if password is correct
