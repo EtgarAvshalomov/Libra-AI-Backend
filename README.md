@@ -207,7 +207,7 @@ class OpenAIService {
             defaultHeaders: {},
         });
         
-        this.defaultModel = 'deepseek/deepseek-chat-v3-0324:free';
+        this.defaultModel = 'deepseek/deepseek-chat-v3.1:free';
     }
 
     async streamChat({ messages, model = this.defaultModel, max_tokens, temperature = 1 }) {
